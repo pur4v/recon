@@ -1,0 +1,23 @@
+{
+  "name": "recon",
+  "version": "0.1.0",
+  "description": "Authorized, owner-operated reconnaissance of a live web product, driven headless with Playwright.",
+  "type": "module",
+  "license": "MIT",
+  "author": "pur4v (https://github.com/pur4v)",
+  "homepage": "https://github.com/pur4v/recon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pur4v/recon.git"
+  },
+  "scripts": {
+    "auth": "node skills/recon/scripts/auth-setup.mjs",
+    "capture": "node skills/recon/scripts/capture.mjs",
+    "decode": "node skills/recon/scripts/decode.mjs",
+    "scan-secrets": "bash skills/recon/scripts/scan_secrets.sh ."
+  },
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "devalue": "^5.1.0"
+  }
+}

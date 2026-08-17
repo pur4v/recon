@@ -1,0 +1,27 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# ── recon captures & credentials — NEVER commit these ──────────────────────────
+# The recon workspace lives in whatever directory you run recon from.
+# Auth state, cookies, tokens, raw traces, and screenshots are sensitive.
+.recon/
+**/.auth/
+*storageState*.json
+*.har
+traces/
+shots/
+
+# Python (in case scripts grow)
+__pycache__/
+*.pyc
+.venv/
+venv/
