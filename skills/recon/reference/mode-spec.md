@@ -65,8 +65,12 @@ recon, not a rebuild's test suite.
 - **Components**: the buttons, tabs, inputs, and data widgets present (from the DOM outline).
 - **Data shown**: what the screen renders, and its source (decoded payload / API endpoint).
 - **Data contract (XHR)**: **every request the screen fires**, read from the HAR — `METHOD
-  path`, request + response shape, when it fires. Link the shared `_api.md`. This is the
-  backend/XHR layer — a first-class part of the spec, not an afterthought.
+  path`, request + response shape, when it fires, and **what it changes on screen** (the
+  cause→effect column: which call repaints which region). Link the shared `_api.md`. This is
+  the backend/XHR layer — a first-class part of the spec, not an afterthought.
+- **Copy**: the screen's key microcopy (CTAs, empty/error/success text) verbatim; full set in
+  the copy inventory.
+- **Responsive**: what changes desktop → mobile (from the `--mobile` shots).
 - **States**: empty, loading, error, auth-gated, paywall/quota.
 - **Transitions**: **in** (how you arrive here) and **out** (where each primary action leads)
   — edges you actually observed/triggered, not assumed.
@@ -82,9 +86,10 @@ recon, not a rebuild's test suite.
 1. **Load the item list** from Survey; decide the feature set and screen set to spec. Keep a
    small **manifest** — `slug, route, auth (public/authed), group` per item — to drive fan-out
    and become `index.md` (mirrors a `screens.manifest`-style catalog).
-2. **Capture with the HAR on.** Each screen/feature needs its network trace, not just the DOM
-   — the Data contract comes from the HAR (`.recon/traces/<slug>/network.har`). See
-   `playwright.md`.
+2. **Capture with the HAR on** (and `--mobile` for responsive shots). Each screen/feature
+   needs its network trace, not just the DOM — the Data contract comes from the HAR
+   (`.recon/traces/<slug>/network.har`); the cause→effect column comes from watching which
+   request fired on which action. See `playwright.md`.
 3. **Fan out** — one `surface-explorer` per feature and per screen (`fan-out.md`). Give each
    the matching template as its output contract, plus the relevant capture (its screenshot,
    its DOM outline slice, its decoded config block, **its HAR slice**).

@@ -47,17 +47,29 @@ API endpoint. Cite it.>
 ## Data contract (from the network trace / XHR)
 
 <Every request this screen fires, read from the HAR / network capture. `METHOD path` +
-request + response shape. Reference the shared [`_api.md`](../../_api.md) for full shapes;
-keep the per-screen slice here. Mark inferred bodies (e.g. a mutation you didn't trigger in a
+request + response shape + **what it changes on screen** (the cause→effect map: which call
+repaints which region). Reference the shared [`_api.md`](../../_api.md) for full shapes; keep
+the per-screen slice here. Mark inferred bodies (e.g. a mutation you didn't trigger in a
 read-only session) as inferred — never invent a payload.>
 
-| Method + path | When it fires | Request (shape) | Response (shape) | Evidence |
-|---|---|---|---|---|
-| `GET /api/...` | on load | — | `{ ... }` | HAR `.recon/traces/<slug>/network.har` |
-| `PUT /api/...` | on <action> (debounced) | `{ ... }` *(inferred)* | `{ ... }` | HAR / inferred |
+| Method + path | When it fires | Request (shape) | Response (shape) | **Changes on screen** | Evidence |
+|---|---|---|---|---|---|
+| `GET /api/...` | on load | — | `{ ... }` | populates the <list/grid> | HAR `.recon/traces/<slug>/network.har` |
+| `PUT /api/...` | on <action> (debounced) | `{ ... }` *(inferred)* | `{ ... }` | updates <region>; toast `<copy>` | HAR / inferred |
 
 - **Auth:** <cookie / bearer / none — reference location, never the value>.
 - **Base(s):** <api host(s) this screen talks to>.
+- **Analytics fired here:** <event(s) from `.recon/screens.json` → analytics — or "none observed">.
+
+## Copy (exact strings)
+
+<Key microcopy on this screen — CTAs, empty/error/success text — quoted verbatim. Full set in
+[`../../../dossier/copy-inventory.md`](../../../dossier/copy-inventory.md).>
+
+## Responsive
+
+<What changes desktop → mobile (nav collapse, columns stack). Evidence: `.recon/shots/<slug>.png`
++ `.recon/shots/<slug>@mobile.png` (capture with `--mobile`).>
 
 ## States
 

@@ -14,10 +14,11 @@
 A scout goes ahead into unknown territory and reports back with reliable information.
 `recon` does that for a **live web product**: point Claude at a product you own or are
 authorized to test, and it drives the real app **headless with Playwright**, captures hard
-evidence (DOM, network, screenshots, decoded payloads), and builds trustworthy,
-**evidence-backed** understanding — a feature catalog, a user journey & funnel, a decoded
-model layer, a competitive landscape, a battlecard — plus a knowledge base so the next
-session starts warm.
+evidence (DOM, network, screenshots, a walkthrough video, decoded payloads), and builds
+trustworthy, **evidence-backed** documentation — a build-ready product dossier, a feature
+catalog, per-screen specs with the API cause→effect contract, a user journey & funnel on
+video, the design language and copy, a decoded model layer, a competitive landscape, a
+battlecard — plus a knowledge base so the next session starts warm.
 
 Built for the moment you have to answer, quickly and correctly: *what does this product
 actually do, how is it built, who is it for, and how do we beat it?*
@@ -31,20 +32,23 @@ actually do, how is it built, who is it for, and how do we beat it?*
 
 ---
 
-## What it does — six modes
+## What it does — seven modes
 
 | Mode | Ask it… | You get |
 |---|---|---|
+| 📚 **Document** ⭐ | "document this product so we can build it" | **The flagship: a product dossier** tying together everything below — overview, screens, journey (with video), data/API contract, design language, copy inventory, analytics. Chains the other six |
 | 🗺️ **Survey** | "map this product / catalog the features" | Feature & IA catalog: every screen/tool, navigation map, control vocabulary, app-shell diagram |
-| 📄 **Spec** | "spec out each feature / screen" | **Build-ready spec docs — per feature and per screen**: controls, modes, backend model, **XHR/API data contract (from the HAR) + shared `_api.md`**, states, transitions, plus an executable read-only `<slug>.spec.ts` + `test-cases.md`; optional replica/build mode |
-| 🚶 **Journey** | "map the user journey / funnel" | First-touch→activation→habit journey, screen-transition graph, funnel + gates |
-| 🔎 **Decode** | "what's it built on / what models does it use" | Decoded framework/network payloads → schemas, config, **de-masked vendor/model layer** |
+| 📄 **Spec** | "spec out each feature / screen" | **Build-ready spec docs — per feature and per screen**: controls, modes, backend model, **XHR/API data contract (from the HAR) with a cause→effect column (which call changes what on screen) + shared `_api.md`**, copy, responsive, states, transitions, plus an executable read-only `<slug>.spec.ts` + `test-cases.md`; optional replica/build mode |
+| 🚶 **Journey** | "map the user journey / funnel" | First-touch→activation→habit journey, a **Playwright walkthrough video + storyboard**, screen-transition graph, funnel + gates |
+| 🔎 **Decode** | "what's it built on / what models does it use / what does it track" | Decoded framework/network payloads → schemas, config, **de-masked vendor/model layer**, and the analytics/events it fires |
 | 🎯 **Position** | "who's it for / how's it priced" | ICP & segments, pricing & packaging, credit/quota economics, GTM funnel |
 | ⚔️ **Compete** | "competitor landscape / battlecard" | Named-competitor landscape, parity checklist, one-page sales battlecard |
 
-Modes chain: survey the surface, spec each item, walk the journey, decode what's under it,
-work out positioning, then build the competitive view. **Survey** is the *catalog* (one row
-per feature); **Spec** is the *dossier* (one deep file per feature and per screen).
+Modes chain — and **Document** runs them together: survey the surface, spec each item (with
+its cause→effect API contract), walk the journey on video, decode what's under it, capture the
+design language / copy / analytics, then assemble the dossier. **Survey** is the *catalog*
+(one row per feature); **Spec** is the *dossier* (one deep file per feature and per screen);
+**Document** is the *whole product written up so it can be built*.
 
 ## What makes the output trustworthy — five disciplines
 
@@ -98,10 +102,11 @@ Then:
 
 ```
 /recon:setup     https://app.example.com   (log in once, save your session)
+/recon:document  document the whole product → build-ready dossier (flagship)
 /recon:survey    catalog the product
 /recon:spec      build-ready spec per feature & per screen
-/recon:journey   map the funnel
-/recon:decode    what's under the hood
+/recon:journey   map the funnel + record a walkthrough video
+/recon:decode    what's under the hood + what it tracks
 /recon:position  ICP & pricing
 /recon:compete   vs Acme, Globex
 ```
@@ -124,7 +129,8 @@ The Playwright scripts are real and runnable:
 npm install           # installs playwright + devalue
 npx playwright install chromium
 npm run auth -- https://app.example.com    # log in once (headed), saves .recon/.auth/state.json
-npm run capture -- /,/create,/library      # headless DOM+network+screenshots -> .recon/
+npm run capture -- /,/create,/library --mobile   # headless DOM+HAR+shots+design+copy+analytics -> .recon/
+npm run journey -- steps.txt --name activation   # record a walkthrough VIDEO + storyboard
 npm run decode  -- https://app.example.com/create   # decode the framework payload
 ```
 
@@ -133,16 +139,16 @@ npm run decode  -- https://app.example.com/create   # decode the framework paylo
 ```
 recon/
 ├── .claude-plugin/          # plugin.json + marketplace.json (plugin install)
-├── commands/                # /recon:setup :survey :spec :journey :decode :position :compete
+├── commands/                # /recon:setup :document :survey :spec :journey :decode :position :compete
 ├── agents/
 │   ├── surface-explorer.md  # per-surface fan-out worker
 │   └── verifier.md          # adversarial refuter for the verify pass
 ├── skills/recon/            # the skill itself (installable on its own)
-│   ├── SKILL.md             # authorization, 6 modes, 5 disciplines, workflow
+│   ├── SKILL.md             # authorization, 7 modes, 5 disciplines, workflow
 │   ├── reference/           # mode-*.md (survey · spec · journey · decode · position · compete) · fan-out · playwright · deliverables · knowledge-base
-│   ├── scripts/             # auth-setup.mjs · capture.mjs (DOM+HAR) · decode.mjs · scan_secrets.sh
-│   └── assets/              # product-spec / feature-spec / screen-spec / api-contract / screen-test / test-cases / competitive-analysis / battlecard / kb templates
-├── examples/nimbus-studio/  # a fully fictional worked example — every mode, incl. specs/
+│   ├── scripts/             # auth-setup.mjs · capture.mjs (DOM+HAR+video+design+copy+analytics) · journey.mjs (walkthrough video) · decode.mjs · scan_secrets.sh
+│   └── assets/              # product-dossier / product-spec / feature-spec / screen-spec / api-contract / screen-test / test-cases / copy-inventory / design-language / analytics-events / competitive-analysis / battlecard / kb templates
+├── examples/nimbus-studio/  # a fully fictional worked example — every mode, incl. dossier/ + specs/
 └── package.json             # playwright + devalue
 ```
 

@@ -8,7 +8,7 @@
     {
       "name": "recon",
       "source": "./",
-      "description": "Authorized, owner-operated recon of a live web product — Playwright-driven, evidence-backed: survey, spec, journey, decode, position, compete.",
+      "description": "Authorized, owner-operated recon of a live web product — Playwright-driven, evidence-backed: document (build-ready dossier), survey, spec, journey (with video), decode, position, compete.",
       "version": "0.1.0",
       "category": "productivity",
       "homepage": "https://github.com/pur4v/recon",

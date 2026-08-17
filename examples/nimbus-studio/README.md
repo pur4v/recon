@@ -1,16 +1,19 @@
 # Worked example: "Nimbus Studio"
 
 > ⚠️ **Entirely fictional.** Nimbus Studio, its features, vendors, models, prices, and the
-> competitors below are invented to demonstrate recon's six modes. Any resemblance to a
+> competitors below are invented to demonstrate recon's seven modes. Any resemblance to a
 > real product is coincidental. No real credentials, endpoints, or captures appear here.
 
 This example shows the output shape of the modes on a small imaginary product:
 
-- **Survey + Journey + Decode** → `product-spec.md`
+- **Document** (flagship) → [`dossier/index.md`](dossier/index.md) — the master handoff tying
+  everything together, plus [`design-language.md`](dossier/design-language.md),
+  [`copy-inventory.md`](dossier/copy-inventory.md), [`analytics-events.md`](dossier/analytics-events.md)
+- **Survey + Journey + Decode** → `product-spec.md` (journey adds a walkthrough video + storyboard)
 - **Spec** → `specs/` — build-ready dossiers per feature ([`restyle`](specs/features/restyle.md))
   and per screen ([`create/screen.md`](specs/screens/create/screen.md) + its
   [`create.spec.ts`](specs/screens/create/create.spec.ts) / [`test-cases.md`](specs/screens/create/test-cases.md)),
-  a shared API contract ([`_api.md`](specs/_api.md)), indexed by [`index.md`](specs/index.md)
+  a shared API contract with a cause→effect column ([`_api.md`](specs/_api.md)), indexed by [`index.md`](specs/index.md)
 - **Position + Compete** → `competitive-analysis.md`
 - **Compete (battlecard)** → `battlecard.md`
 

@@ -13,6 +13,7 @@
   "scripts": {
     "auth": "node skills/recon/scripts/auth-setup.mjs",
     "capture": "node skills/recon/scripts/capture.mjs",
+    "journey": "node skills/recon/scripts/journey.mjs",
     "decode": "node skills/recon/scripts/decode.mjs",
     "scan-secrets": "bash skills/recon/scripts/scan_secrets.sh ."
   },

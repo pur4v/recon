@@ -4,6 +4,34 @@ All notable changes to recon are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added — recon as build-ready product documentation
+- **Document mode (flagship)** — `/recon:document` produces a **product dossier**
+  (`assets/product-dossier-template.md` → `.recon/dossier/index.md`): one build-ready handoff
+  tying together every artifact (overview, screens, journey+video, data/API contract, design
+  language, copy, analytics) so it can serve as the basis to build. Chains Survey + Spec +
+  Journey + Decode and assembles them. recon is now **seven modes**.
+- **Journey walkthrough video** — `scripts/journey.mjs` records one Playwright `.webm` of an
+  ordered walk plus a numbered storyboard shot per step and logs which requests each step
+  fired. `capture.mjs --video` records per-screen clips. Read-only by default; `fill:`/`press:`
+  gated behind `--allow-input`.
+- **API cause→effect** — the Data contract and shared `_api.md` now carry a **"changes on
+  screen"** column (which XHR repaints which region), from watching the network on each action.
+- **New capture signals** in `capture.mjs`: `--mobile` (390px responsive shots), observed
+  **design tokens** (`design`), **copy** inventory (`copy`), and **analytics beacons**
+  (`analytics`, matching Segment/Amplitude/PostHog/GA/…).
+- **New deliverable templates**: `product-dossier`, `copy-inventory`, `design-language`,
+  `analytics-events`. Decode mode now rolls up the analytics/events the product fires.
+- **Mandatory per-screen fan-out** — Survey/Spec/Journey/Document now *actually invoke* one
+  `surface-explorer` per screen in a single concurrent message (`fan-out.md`: "Fire the
+  agents — don't just plan them"), not describe a fan-out that never ran.
+- **Capture-reliability hardening** (`playwright.md`): assert final URL vs. requested, dismiss
+  consent banners first, verify a client-side nav actually changed the view (content
+  fingerprint + click escalation), prove the recorder is live.
+- Example `nimbus-studio/` gains a `dossier/` (index + design-language + copy-inventory +
+  analytics-events) and cause→effect columns.
+
 ## [0.1.0] — 2026-08-17
 
 First public release.

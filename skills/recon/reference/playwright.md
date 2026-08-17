@@ -44,7 +44,20 @@ this file explains them so you can adapt.
 - **Read endpoints from the HAR, never invent them.** A request you didn't trigger
   (read-only session) has no observed body — mark it *inferred*, don't fabricate one.
 - **Screenshot every state** to `.recon/shots/<label>.png` — in SPAs the URL may not change
-  across meaningful states, so the screenshot is the evidence.
+  across meaningful states, so the screenshot is the evidence. Add `--mobile` to also shoot a
+  390px viewport (`<label>@mobile.png`) for responsive evidence.
+- **Record the journey as video.** `scripts/journey.mjs <steps.txt>` walks an ordered path
+  (goto/click/wait/shot steps) in one context recording a `.webm` walkthrough + a storyboard
+  shot per step, and logs how many requests each step fired (cause→effect). `capture.mjs
+  --video` records a short clip per screen load. Videos go to gitignored `.recon/videos/`.
+- **Grab the design tokens.** `capture.mjs` reads computed styles (body/heading font, button
+  bg/radius, link color, bg) into `screens.json` → `design`. These are *measured values* for
+  a faithful rebuild — **document the system, never copy the product's fonts/assets/logos.**
+- **Grab the copy.** `screens.json` → `copy` holds CTAs, labels, and alert/empty-state text
+  verbatim — the microcopy a rebuild needs. Transcribe, don't paraphrase.
+- **Flag analytics beacons.** `capture.mjs` matches known providers (Segment, Amplitude,
+  PostHog, GA, Rudderstack, …) into `screens.json` → `analytics`; the HAR has the event
+  payloads. What the product tracks is a product signal — see `mode-decode.md`.
 
 ## Make sure the capture actually captured (don't record nothing)
 
@@ -81,4 +94,5 @@ screen or a no-op. Guard against it:
 - [ ] Target is owned / authorized; logged in as my own account.
 - [ ] Headless; no destructive clicks; no credit/quota spend without sign-off.
 - [ ] Auth state stays in `.recon/.auth/` (gitignored).
-- [ ] Traces/screenshots treated as sensitive (may contain tokens/user data).
+- [ ] Traces/screenshots/videos treated as sensitive (may contain tokens/user data).
+- [ ] `journey.mjs` steps are non-destructive; `--allow-input` only with per-run sign-off.

@@ -1,6 +1,6 @@
 {
   "name": "recon",
-  "description": "Authorized, owner-operated reconnaissance of a live web product — drive it headless with Playwright and bring back verified, evidence-backed understanding: feature catalog, build-ready per-feature/per-screen specs, user journey & funnel, decoded model layer, positioning, competitor landscape, and battlecard.",
+  "description": "Authorized, owner-operated reconnaissance of a live web product — drive it headless with Playwright and bring back verified, evidence-backed documentation: a build-ready product dossier, feature catalog, per-feature/per-screen specs with the API cause→effect contract, user journey & funnel with a walkthrough video, design language, copy inventory, analytics/events, decoded model layer, positioning, competitor landscape, and battlecard.",
   "version": "0.1.0",
   "author": {
     "name": "pur4v",

@@ -28,6 +28,11 @@ faithfully.
   **confirmed** (named in a payload — cite the field) vs **masked** (not exposed at runtime
   — say so; do not guess the model).
 - **Feature flags & entitlements** — booleans/plan-gates the client evaluates.
+- **Analytics & events** — the telemetry the product fires (Segment/Amplitude/PostHog/GA/
+  first-party) and the event names/properties in those beacons. `capture.mjs` flags known
+  providers per screen (`screens.json` → `analytics`); the HAR carries the payloads. What a
+  product *measures* is a strong signal of what it thinks matters — roll it up into
+  `assets/analytics-events-template.md`. Quote event names/props; mask any PII/token values.
 
 ## Method
 

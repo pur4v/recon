@@ -25,8 +25,11 @@ control by default (`.recon/` is gitignored).
 │       ├── <slug>.spec.ts       #   executable, read-only Playwright check
 │       └── test-cases.md        #   human-readable cases
 ├── traces/<slug>/network.har    # raw captured request/response — Data-contract source (SENSITIVE)
-├── shots/                       # screenshots
+├── shots/                       # screenshots (<slug>.png, <slug>@mobile.png, journey/ storyboard)
+├── videos/<label|journey>/      # Playwright walkthrough videos (.webm)
+├── journeys/<name>.steps.json   # journey storyboard (steps → url/shot/requests fired)
 ├── diagrams/                    # ASCII-mirrored SVGs
+├── dossier/                     # PM handoff: index.md + design-language / copy-inventory / analytics-events
 ├── .auth/                       # session storageState (SENSITIVE — never commit)
 ├── product-spec.md              # synthesized deliverable
 ├── competitive-analysis.md      # synthesized deliverable

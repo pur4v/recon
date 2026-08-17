@@ -2,29 +2,34 @@
 name: recon
 description: >-
   Reconnoiter a live web product you own or are authorized to test, and bring back
-  verified, evidence-backed understanding of it. Use when you need to catalog a product's
-  features and screens, map the user journey / funnel / screen transitions, write
+  verified, evidence-backed documentation of it. Use when you need to document a whole
+  product into one build-ready dossier, catalog a product's features and screens, map the
+  user journey / funnel / screen transitions (with a Playwright walkthrough video), write
   build-ready spec docs for every screen and feature (with the backend/XHR API contract from
-  the network trace and executable read-only tests), decode what a
+  the network trace — including which call changes what on screen — and executable read-only
+  tests), capture its design language, copy, and analytics/events, decode what a
   web app is really doing under the hood (framework payloads, hidden config, the
   vendor/model layer behind an AI product), work out its ICP / pricing / GTM, or build a
   competitor landscape and sales battlecard. Drives the real product headless with
-  Playwright and treats what's observed as the source of truth. Triggers: "map this
-  product / what does it do", "catalog the features / screens / tools", "map the user
-  journey / funnel / screen transitions", "spec out each feature / screen / write a spec doc
+  Playwright and treats what's observed as the source of truth. Triggers: "document this
+  product / write it all up so we can build it", "map this product / what does it do",
+  "catalog the features / screens / tools", "map the user journey / funnel / screen
+  transitions / record a walkthrough", "spec out each feature / screen / write a spec doc
   per feature / reverse-engineer a PRD", "what's it built on / decode the payloads / what
-  models does it use", "who's it for / how is it priced", "competitor analysis / landscape
-  / battlecard / how do we stack up". Authorized, owner-operated recon only.
+  models does it use / what does it track", "who's it for / how is it priced", "competitor
+  analysis / landscape / battlecard / how do we stack up". Authorized, owner-operated recon only.
 ---
 
 # recon
 
 A scout goes ahead into unknown territory and brings back **verified** intel. `recon` does
 that for a **live web product**: point it at a product you own or are authorized to test,
-drive it headless with Playwright, capture hard evidence (DOM, network, screenshots,
-decoded payloads), and produce shareable artifacts — a product spec, a journey/funnel map,
-a decoded model layer, build-ready per-screen/per-feature specs, a competitive analysis, a
-battlecard — plus a knowledge base so the next session starts warm.
+drive it headless with Playwright, capture hard evidence (DOM, network, screenshots, a
+walkthrough video, decoded payloads), and produce shareable artifacts — a **product dossier**
+(the master handoff), a product spec, a journey/funnel map with video, build-ready
+per-screen/per-feature specs with the API cause→effect contract, the design language, copy
+inventory, analytics/events, a competitive analysis, a battlecard — plus a knowledge base so
+the next session starts warm.
 
 Built for the moment you have to answer, quickly and correctly: *what does this product
 actually do, how is it built, who is it for, and how do we beat it?*
@@ -50,24 +55,32 @@ If a request would cross any of these lines, say so and stop — don't improvise
 
 ## When to use this skill
 
-Use it when the real job is *"understand a live product I'm authorized to inspect, and be
-able to trust the answer."* That covers six recurring jobs (the **modes** below). A single
-request usually chains several — survey the surface, spec each item, map the journey, decode
-what's under it, work out positioning, then build the competitive view.
+Use it when the real job is *"understand a live product I'm authorized to inspect, document
+it thoroughly, and be able to trust the answer."* That covers seven recurring jobs (the
+**modes** below): a flagship **Document** mode that produces the whole build-ready dossier,
+plus six focused modes it draws on. A single request usually chains several — survey the
+surface, spec each item, map the journey (with video), decode what's under it, work out
+positioning, then build the competitive view. When someone needs *the whole product written
+up so we can build it*, that's **Document**.
 
 Do **not** spin up the full machinery for a single fact you can read off one page. Recon
 earns its cost on breadth (many screens, whole funnels, a decoded app, a competitor set).
 
-## The six modes
+## The seven modes
 
 | Mode | You ask… | recon produces | Reference |
 |---|---|---|---|
+| **Document** ⭐ | "document this product / write it all up so we can build it" | The flagship: a **product dossier** tying together every artifact below — overview, screens, journey (with video), data/API contract, design language, copy inventory, analytics — one build-ready handoff. Chains the other six | `commands/document.md` |
 | **Survey** | "map this product / catalog the features / what screens exist" | Feature & IA catalog: every screen/tool/feature, the navigation map, the control vocabulary, an app-shell diagram | `reference/mode-survey.md` |
-| **Spec** | "spec out each feature / screen / write a spec doc per feature / reverse-engineer a PRD" | Build-ready specs — **per feature and per screen** — controls, modes, backend model, **the XHR/API Data contract (from the HAR) + a shared `_api.md`**, states, transitions, plus an executable read-only `<slug>.spec.ts` + `test-cases.md`; optional replica/build mode. Deep enough to rebuild from | `reference/mode-spec.md` |
-| **Journey** | "map the user journey / funnel / screen transitions" | End-to-end journey (first-touch → activation → habit), a screen-transition graph, and the activation/conversion funnel with drop-off points | `reference/mode-journey.md` |
-| **Decode** | "what's it built on / decode the payloads / what models does it use" | Decoded framework/network payloads → recovered schemas, hidden config, and the de-masked vendor/model/pipeline layer behind an AI product | `reference/mode-decode.md` |
+| **Spec** | "spec out each feature / screen / write a spec doc per feature / reverse-engineer a PRD" | Build-ready specs — **per feature and per screen** — controls, modes, backend model, **the XHR/API Data contract (from the HAR) with a cause→effect column (which call changes what on screen) + a shared `_api.md`**, states, transitions, copy, responsive, plus an executable read-only `<slug>.spec.ts` + `test-cases.md`; optional replica/build mode. Deep enough to rebuild from | `reference/mode-spec.md` |
+| **Journey** | "map the user journey / funnel / screen transitions" | End-to-end journey (first-touch → activation → habit), a **Playwright walkthrough video + storyboard**, a screen-transition graph, and the activation/conversion funnel with drop-off points | `reference/mode-journey.md` |
+| **Decode** | "what's it built on / decode the payloads / what models does it use / what does it track" | Decoded framework/network payloads → recovered schemas, hidden config, the de-masked vendor/model/pipeline layer behind an AI product, and the **analytics/events** it fires | `reference/mode-decode.md` |
 | **Position** | "who's it for / how is it priced / GTM" | ICP & segments, pricing & packaging, credit/quota economics, the go-to-market funnel | `reference/mode-position.md` |
 | **Compete** | "competitor landscape / battlecard / how do we stack up" | Named-competitor landscape, a feature/pricing parity checklist, and a one-page sales battlecard | `reference/mode-compete.md` |
+
+**Document** is the one to reach for when the ask is "capture the whole product" — it runs
+Survey + Spec + Journey + Decode and assembles the dossier (`assets/product-dossier-template.md`).
+The other modes are also usable on their own for a narrower question.
 
 **Survey vs Spec:** Survey is the *catalog* (one row per feature, the whole surface at a
 glance). Spec is the *dossier* (one deep file per feature and per screen). Run Survey first
@@ -87,8 +100,8 @@ These are what make the output *trustworthy*. They are not optional.
    nothing destructive without per-run sign-off. This discipline outranks the other four.
 
 2. **Evidence or it didn't happen.** Every non-trivial claim carries a concrete locator —
-   a **URL + selector**, a **network endpoint**, a **screenshot path**, or a **decoded
-   payload field**. Observed behavior is the source of truth. And always label:
+   a **URL + selector**, a **network endpoint**, a **screenshot / storyboard frame or video**,
+   or a **decoded payload field**. Observed behavior is the source of truth. And always label:
    - **observed vs inferred** — what you *saw the product do* vs what you *deduced*. A price
      on the pricing page is observed; "so their ACV is ~$X" is inferred.
    - **live vs marketing** — a claim on a landing page is a *claim*; confirm it against the
@@ -124,8 +137,10 @@ These are what make the output *trustworthy*. They are not optional.
    (`scripts/auth-setup.mjs`). All later runs are headless and reuse it. See
    `reference/playwright.md`.
 3. **Capture.** Drive the product headless — enumerate screens, capture DOM outlines,
-   network, and screenshots (`scripts/capture.mjs`); decode framework payloads where they
-   carry the real schema (`scripts/decode.mjs` and `reference/mode-decode.md`).
+   network + HAR, screenshots (add `--mobile` for responsive), design tokens, copy, and
+   analytics beacons (`scripts/capture.mjs`); record the journey as a **video + storyboard**
+   (`scripts/journey.mjs`); decode framework payloads where they carry the real schema
+   (`scripts/decode.mjs` and `reference/mode-decode.md`).
 4. **Fan out** — enumerate the screens/sections, then **launch one `surface-explorer` per
    screen in a single message** (concurrently); collect their structured findings. Don't
    write the catalog/spec without having actually run the per-screen agents.

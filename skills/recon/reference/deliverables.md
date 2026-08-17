@@ -9,15 +9,23 @@ model, so the two views can't drift.
 
 | Deliverable | Template | Built from modes |
 |---|---|---|
+| **Product dossier** (master handoff) | `assets/product-dossier-template.md` | Document (synthesizes all modes) |
 | Product spec | `assets/product-spec-template.md` | Survey + Journey + Decode |
 | Feature spec (one per feature) | `assets/feature-spec-template.md` | Spec (+ Decode) |
 | Screen spec (one per screen) | `assets/screen-spec-template.md` | Spec (+ Survey) |
 | Shared API contract | `assets/api-contract-template.md` | Spec (rolled up from every Data contract) |
 | Screen test (executable) | `assets/screen-test-template.spec.ts` | Spec (read-only Playwright check) |
 | Test cases (per screen) | `assets/test-cases-template.md` | Spec |
+| Copy inventory | `assets/copy-inventory-template.md` | Survey/Spec (rendered DOM) |
+| Design language | `assets/design-language-template.md` | Survey/Spec (computed styles + shots) |
+| Analytics & events | `assets/analytics-events-template.md` | Decode (network beacons) |
 | Competitive analysis | `assets/competitive-analysis-template.md` | Position + Compete (+ the spec) |
 | Battlecard (1 page) | `assets/battlecard-template.md` | Compete |
 | KB note | `assets/kb-template.md` | any |
+
+The **product dossier** is the top-level PM handoff: one document that links every artifact
+below (spec, journey video, data contract, design language, copy, analytics) so a reader can
+decide *what to build*. It's what a downstream builder consumes. See `commands/document.md`.
 
 The Spec-mode files are build-ready per-item dossiers, collated by `.recon/specs/index.md`
 with a shared `_api.md`. Features live at `.recon/specs/features/<slug>.md`; each screen is a
@@ -28,6 +36,18 @@ fan-out (one agent per feature and per screen).
 Lead every deliverable with the conclusion; put the evidence trail (locators) under it.
 Prefer tables and diagrams over walls of prose. Always end with "unknown / not exposed /
 inferred."
+
+## Media (screenshots + video)
+
+Documentation for "so we can build it" is visual as much as textual:
+
+- **Screenshots** — every screen at desktop (`.recon/shots/<slug>.png`) and, with `--mobile`,
+  a 390px shot (`<slug>@mobile.png`) for responsive evidence. A screenshot backs every state
+  claim (in SPAs the URL doesn't move, so the shot *is* the evidence).
+- **Journey video + storyboard** — `scripts/journey.mjs` records one `.webm` of the whole
+  walk (`.recon/videos/<name>/`) plus a numbered shot per step (`.recon/shots/journey/`).
+  Reference the video from the journey note and the dossier; embed the storyboard shots inline.
+- Keep videos/shots in the gitignored `.recon/` — they can show account/session data.
 
 ## Diagrams: the shared model
 

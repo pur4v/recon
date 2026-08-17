@@ -1,7 +1,7 @@
 # Contributing to recon
 
 Thanks for wanting to help. recon is a small, focused skill — the goal is to keep it sharp,
-not sprawling. Contributions that make the six modes more *trustworthy* (or the capture
+not sprawling. Contributions that make the seven modes more *trustworthy* (or the capture
 scripts more robust) are especially welcome.
 
 ## Ground rules

@@ -8,13 +8,13 @@
 
 ## Endpoints
 
-| Method + path | Status | Request (shape) | Response (shape) | Used by |
-|---|---|---|---|---|
-| `GET /api/v1/me` | 200 | — | `{id, email, plan, sparks}` | [create](screens/create/screen.md) |
-| `GET /create/__data.json` | 200 | — | SvelteKit devalue → `{tools[], tool.modes[]}` | [create](screens/create/screen.md) |
-| `GET /billing/__data.json` | 200 | — | `{plan, sparks, unitCosts}` | [create](screens/create/screen.md) |
-| `POST /api/v1/render` | 200 | `{tool, mode, reference{...}, params}` | `{jobId}` | [restyle](features/restyle.md) |
-| `WS /realtime` | 101 | `{subscribe: jobId}` | `{status, outputs[]}` | [restyle](features/restyle.md) |
+| Method + path | Status | Request (shape) | Response (shape) | Changes on screen | Used by |
+|---|---|---|---|---|---|
+| `GET /api/v1/me` | 200 | — | `{id, email, plan, sparks}` | header spark balance | [create](screens/create/screen.md) |
+| `GET /create/__data.json` | 200 | — | SvelteKit devalue → `{tools[], tool.modes[]}` | tool-card grid | [create](screens/create/screen.md) |
+| `GET /billing/__data.json` | 200 | — | `{plan, sparks, unitCosts}` | paywall-vs-run gate | [create](screens/create/screen.md) |
+| `POST /api/v1/render` | 200 | `{tool, mode, reference{...}, params}` | `{jobId}` | starts a render; result grid shows a pending card | [restyle](features/restyle.md) |
+| `WS /realtime` | 101 | `{subscribe: jobId}` | `{status, outputs[]}` | streams progress → fills the result card | [restyle](features/restyle.md) |
 
 ## Auth & session
 

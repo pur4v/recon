@@ -12,6 +12,11 @@ does onboarding / activation work", "where do users drop off".
 - **End-to-end journey** — the ordered path a user takes, in stages: **first-touch →
   sign-up → onboarding → activation (first real value) → habit/expansion**. Each stage:
   the screens involved, the action required, and the friction.
+- **Walkthrough video + storyboard** — a Playwright **video** of the whole walk plus a
+  screenshot after every step (the storyboard). Run `scripts/journey.mjs <steps.txt>` — it
+  records one `.recon/videos/<name>/*.webm` across the ordered path and drops numbered
+  storyboard shots in `.recon/shots/journey/`, and logs how many requests each step fired
+  (which action changed what). This is the primary artifact for "show me the journey."
 - **Screen-transition graph** — states (screens/modals) as nodes, user actions as edges.
   ASCII inline **and** an SVG (see `deliverables.md`). Mark gated transitions (auth wall,
   paywall, quota wall) distinctly.
@@ -25,8 +30,11 @@ does onboarding / activation work", "where do users drop off".
 ## Method
 
 1. **Walk the happy path yourself**, as the authorized account, headless — from landing
-   page through to the core action. Screenshot each state; record the route and the trigger
-   that advanced it.
+   page through to the core action. Drive it with `scripts/journey.mjs` so the whole walk is
+   recorded as **one video** with a **storyboard shot per step**; record the route and the
+   trigger that advanced each transition. Keep the walk read-only (navigate + click);
+   `fill:`/`press:` steps are gated behind `--allow-input` because typing/submitting can
+   create data or spend credits — only enable them with per-run sign-off.
 2. **Note client-side nav.** SPAs transition without full page loads and often without
    `<a href>` — capture the rendered buttons/tabs/handlers that drive transitions, not just
    anchor links. (Waiting for `networkidle` can hang on apps with live sockets; use
@@ -51,5 +59,5 @@ does onboarding / activation work", "where do users drop off".
 ## Output shape
 
 Lead with the aha moment and the number of steps to it. Then the staged journey table, the
-screen-transition graph, and the funnel with its gates. Persist to
-`.recon/notes/<product>-journey.md`.
+walkthrough video + storyboard link, the screen-transition graph, and the funnel with its
+gates. Persist to `.recon/notes/<product>-journey.md`.

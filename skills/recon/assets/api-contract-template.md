@@ -14,11 +14,11 @@
 
 ## Endpoints
 
-| Method + path | Status | Request (shape) | Response (shape) | Used by |
-|---|---|---|---|---|
-| `GET /api/v1/...` | 200 | — | `{ ... }` | [screen](screens/<slug>/screen.md) |
-| `POST /api/v1/...` | 200 | `{ ... }` | `{ ... }` | [feature](features/<slug>.md) |
-| `PUT /api/v1/...` | 200 | `{ ... }` *(inferred — not triggered)* | `{ ... }` | <screen/feature> |
+| Method + path | Status | Request (shape) | Response (shape) | Changes on screen | Used by |
+|---|---|---|---|---|---|
+| `GET /api/v1/...` | 200 | — | `{ ... }` | populates <region> | [screen](screens/<slug>/screen.md) |
+| `POST /api/v1/...` | 200 | `{ ... }` | `{ ... }` | renders <result> | [feature](features/<slug>.md) |
+| `PUT /api/v1/...` | 200 | `{ ... }` *(inferred — not triggered)* | `{ ... }` | <effect> | <screen/feature> |
 
 ## Auth & session
 
