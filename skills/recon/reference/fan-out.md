@@ -10,6 +10,26 @@ competitors**, spawn **one sub-agent per surface/vertical/competitor** and run t
 **concurrently**, then synthesize. Give every sub-agent the *same* focused question and the
 *same* output contract so results merge cleanly.
 
+## Fire the agents — don't just plan them
+
+This is an **operating instruction, not a suggestion.** When a mode runs over more than one
+screen/section/competitor (Survey and Spec almost always do), you **must actually invoke the
+sub-agents** — describing a fan-out you never launched is a failure of the discipline.
+
+1. **Enumerate the units first.** From Survey's item list (or a quick route/manifest pass),
+   build the list of screens/sections to cover. That list is the fan-out plan.
+2. **Spawn one `surface-explorer` per unit, in a single message.** Emit all the `Agent`
+   tool calls together in one turn so they run **concurrently** — do not spawn one, wait,
+   then spawn the next. One screen → one agent.
+   - **Spec mode** additionally emits, per **screen**, the `screen.md` + `<slug>.spec.ts` +
+     `test-cases.md`; give each screen-agent that full output contract.
+   - Batch very large sets (e.g. 8–12 at a time) to respect concurrency limits; **say so**
+     if you batch, and keep going until every unit is covered.
+3. **Wait for all, then synthesize** (below) and run the verify pass.
+
+If you find yourself writing a spec or catalog **without** having launched per-screen agents,
+stop and fan out — that's the whole point of the mode.
+
 ## When to fan out vs. answer directly
 
 - **Fan out**: "catalog every tool across all sections", "map the funnel across all entry

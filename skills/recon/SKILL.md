@@ -99,9 +99,12 @@ These are what make the output *trustworthy*. They are not optional.
    - **Never fabricate** feature names, prices, tiers, endpoints, or vendors. Unknown is
      "unknown / not exposed," never an invention.
 
-3. **Parallel fan-out.** For anything spanning many screens, several verticals, or a set of
-   competitors, spawn **one sub-agent per surface/vertical/competitor** and run them
-   concurrently, then synthesize. Never grind serially. See `reference/fan-out.md`.
+3. **Parallel fan-out (actually invoke the agents).** For anything spanning many screens,
+   several verticals, or a set of competitors, **spawn one `surface-explorer` sub-agent per
+   surface/vertical/competitor — one screen, one agent — emitting all the calls in a single
+   message so they run concurrently**, then synthesize. This is an operating instruction:
+   Survey and Spec run over many screens, so they *must* launch per-screen agents, not
+   describe a fan-out that never ran. Never grind serially. See `reference/fan-out.md`.
 
 4. **Adversarial verify pass.** Before presenting, re-check the findings — ideally with a
    fresh sub-agent tasked to *refute*: are the feature counts real, the price tiers current,
@@ -123,7 +126,9 @@ These are what make the output *trustworthy*. They are not optional.
 3. **Capture.** Drive the product headless — enumerate screens, capture DOM outlines,
    network, and screenshots (`scripts/capture.mjs`); decode framework payloads where they
    carry the real schema (`scripts/decode.mjs` and `reference/mode-decode.md`).
-4. **Fan out** across surfaces/verticals/competitors; collect structured findings.
+4. **Fan out** — enumerate the screens/sections, then **launch one `surface-explorer` per
+   screen in a single message** (concurrently); collect their structured findings. Don't
+   write the catalog/spec without having actually run the per-screen agents.
 5. **Synthesize** into the artifact(s) for the active mode(s).
 6. **Verify.** Adversarial pass over the synthesized claims. Correct or downgrade anything
    that doesn't hold.

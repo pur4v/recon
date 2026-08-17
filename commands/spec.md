@@ -13,8 +13,10 @@ per-item dossiers.
 **Prerequisite:** run Survey first (or read `.recon/notes/<product>-survey.md`) for the item
 list, and Decode where available (exact control types + backend pipelines). **Capture with
 the HAR on** (`.recon/traces/<slug>/network.har`) — the Data contract comes from it. Then
-**fan out** one `surface-explorer` per feature and per screen, each writing from the matching
-template:
+**actually fan out — spawn one `surface-explorer` per feature and per screen, emitting all
+the calls in a single message so they run concurrently** (one screen → one agent; batch
+8–12 at a time for large sets and say so). Don't write specs without having launched the
+per-item agents. Each writes from the matching template:
 - Features → `skills/recon/assets/feature-spec-template.md` → `.recon/specs/features/<slug>.md`
 - Screens → `skills/recon/assets/screen-spec-template.md` → `.recon/specs/screens/<slug>/screen.md`,
   plus `<slug>.spec.ts` (from `assets/screen-test-template.spec.ts`, **read-only**, your own

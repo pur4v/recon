@@ -46,6 +46,27 @@ this file explains them so you can adapt.
 - **Screenshot every state** to `.recon/shots/<label>.png` — in SPAs the URL may not change
   across meaningful states, so the screenshot is the evidence.
 
+## Make sure the capture actually captured (don't record nothing)
+
+The worst failure isn't a crash — it's a run that *looks* captured but recorded the wrong
+screen or a no-op. Guard against it:
+
+- **Assert the final URL after every navigation.** Apps bounce to `/login`, `/home`, or
+  `/unauthorized`. `capture.mjs` records `finalUrl`; **compare it to the route you asked
+  for** — if they differ, you captured a redirect (an auth/gate signal, or an expired
+  session), not the target. A spec written against the wrong screen is worse than a gap.
+- **Dismiss consent / cookie banners first.** They overlay the page, intercept the clicks
+  you use to trigger client-side nav, and turn a real screen into a phantom "empty" capture.
+- **Verify a client-side nav actually changed the view.** In SPAs the URL often doesn't
+  change across tabs/modes, so a click that silently no-ops looks like a captured state.
+  Take a **content fingerprint** before and after (title + `h1,h2,h3` + a hash of visible
+  text); if it's identical, the click did nothing — **escalate** (ref/selector click →
+  coordinate click → focus + Enter → dispatched pointer event) before recording that state.
+  If every method fails and no handler is attached, *that* is the finding.
+- **Prove the recorder works.** A suspiciously clean console/network can mean the listener
+  attached too late (or after a tab switch — listeners don't carry over). Hit one URL you
+  expect to log (a deliberate 404) to confirm capture is live, then trust "clean elsewhere."
+
 ## Scaling the crawl
 
 - Discover routes from a source of truth first (rendered link grid, `sitemap.xml`, or a

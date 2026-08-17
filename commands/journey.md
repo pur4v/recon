@@ -10,9 +10,11 @@ first-touch → sign-up → onboarding → activation → habit, the screen-tran
 the funnel with its gates and drop-off points.
 
 Walk the happy path yourself (headless, your own account), screenshotting each state and
-recording the trigger that advanced it. Capture client-side nav (buttons/tabs/handlers,
-not just `<a href>`) and use `domcontentloaded` + a settle, never `networkidle`, on live
-apps. Identify the gates (auth/verify/paywall/quota) — those are the funnel steps. Draw an
+recording the trigger that advanced it. When there are **several distinct entry paths or
+funnels** (e.g. free vs. paid signup, mobile vs. desktop, per-role), **fan out one
+`surface-explorer` per path in a single message** and merge the transition graphs. Capture
+client-side nav (buttons/tabs/handlers, not just `<a href>`) and use `domcontentloaded` + a
+settle, never `networkidle`, on live apps. Identify the gates (auth/verify/paywall/quota) — those are the funnel steps. Draw an
 edge only where you actually triggered the transition. Distinguish a **structural** funnel
 (gates) from a **measured** one (you don't have their analytics — never invent percentages).
 
